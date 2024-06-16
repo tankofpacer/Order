@@ -1,8 +1,5 @@
 package com.example.Android_bigWork.Entity;
 
-import androidx.room.Entity;
-
-@Entity(tableName = "dish_table")//实体类的声明
 public class Dish {
     private int GID;
     private String name;
@@ -12,12 +9,12 @@ public class Dish {
     private int CID;
     private boolean customizable;
 
-    public Dish(String name, double price) {
-        new Dish(0, name, "no description", price, "popular", 0, false);
+    public Dish(String name,double price) {
+        new Dish(0,name,"no description",price,"popular",0,false);
     }
 
     public Dish(int gid, String name, String description, double price, String category, int CID, boolean customizable) {
-        this.GID = gid;
+        this.GID=gid;
         setName(name);
         setDescription(description);
         setPrice(price);

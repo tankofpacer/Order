@@ -20,14 +20,18 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * @author 
+ * @Type StringUtil
+ * @Desc 处理字符串
+ */
 public class StringUtil {
     /**
      * 将字符串中的特殊符号删除
      *
      * @param str 待处理的字符串
      * @return String
-     * @Author Bubu
-     * @date 2022/10/26 18:38
+     * @Author 
      * @commit
      */
     public static String replaceToBlank(String str) {
@@ -40,13 +44,24 @@ public class StringUtil {
         return dest;
     }
 
+    /**
+     * 根据给定金额，符号大小，红包，计算经过红包折扣后的金额字符串样式
+     *
+     * @param moneyBeforeDiscount 折扣前的金额
+     * @param symbolSize          金额前￥符号大小
+     * @param coupon              进行折扣的红包
+     * @return android.text.SpannableString
+     * @Author 
+     * @commit
+     */
     public static SpannableString getSSMoneyAfterDiscount(double moneyBeforeDiscount, int symbolSize, Coupon coupon) {
         String moneyBefore = String.valueOf(moneyBeforeDiscount);
         int lengthBefore = moneyBefore.length();
         double moneyAfterDiscount = moneyBeforeDiscount;
+        // 根据红包类型的不同，进行不同的计算
         switch (coupon.getType()) {
             case 0:
-                moneyAfterDiscount = coupon.getDiscount()  * moneyBeforeDiscount / 10;
+                moneyAfterDiscount = coupon.getDiscount() * moneyBeforeDiscount / 10;
                 break;
             case 1:
                 if (moneyBeforeDiscount >= coupon.getCondition()) {
@@ -67,7 +82,7 @@ public class StringUtil {
         // 下划线
         UnderlineSpan underlineSpan = new UnderlineSpan();
         // 删除线
-        StrikethroughSpan strikethroughSpan=new StrikethroughSpan();
+        StrikethroughSpan strikethroughSpan = new StrikethroughSpan();
         // 将上述设置应用到SpannableString, 并设置应用范围
         ss.setSpan(yellowSpan, 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         ss.setSpan(sizeSpan, 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -82,8 +97,7 @@ public class StringUtil {
      * @param money      金额
      * @param symbolSize 金钱符号大小
      * @return SpannableString
-     * @Author Bubu
-     * @date 2022/10/26 18:38
+     * @Author 
      * @commit
      */
     public static SpannableString getSSMoney(double money, int symbolSize) {
@@ -104,8 +118,7 @@ public class StringUtil {
      * @param list 待转换的List
      * @param div  分隔符
      * @return String
-     * @Author Bubu
-     * @date 2022/10/26 18:40
+     * @Author 
      * @commit
      */
     public static String join(List<String> list, String div) {
@@ -124,6 +137,13 @@ public class StringUtil {
         }
     }
 
+    /**
+     * 获取当前系统的日期与时间
+     *
+     * @return java.lang.String
+     * @Author 
+     * @commit
+     */
     public static String getCurrentDateAndTime() {
         Calendar c = Calendar.getInstance();
         int year, month, day, hour, minute, second;
@@ -136,6 +156,13 @@ public class StringUtil {
         return year + "/" + month + "/" + day + "-" + hour + ":" + minute + ":" + second;
     }
 
+    /**
+     * 获取当前系统日期与时间
+     *
+     * @return java.lang.String
+     * @Author
+     * @commit
+     */
     public static String getCurrentTime() {
         long currentTime = System.currentTimeMillis();
         @SuppressLint("SimpleDateFormat") String timeNow = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(currentTime);
@@ -147,14 +174,12 @@ public class StringUtil {
      *
      * @param mills 时间戳
      * @return String
-     * @Author Bubu
-     * @date 2022/10/26 18:42
+     * @Author 
      * @commit
      */
     @SuppressLint("SimpleDateFormat")
     public static String getCurrentTimeByMills(long mills) {
         return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(mills);
     }
-
 
 }

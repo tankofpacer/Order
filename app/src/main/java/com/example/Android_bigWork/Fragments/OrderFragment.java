@@ -9,9 +9,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -35,6 +37,7 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 public class OrderFragment extends Fragment {
 
+    RatingBar ratingBar;
     private static String TAG = "my";
     // Data
     private OrderViewModel orderViewModel;
@@ -73,6 +76,17 @@ public class OrderFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        ratingBar=getActivity().findViewById(R.id.ratingBar);
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                Toast.makeText(getActivity().getApplicationContext(), String.valueOf("本次服务评价为"+v+"星"),Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+
 
         TextView tv4 = getActivity().findViewById(R.id.textView12);
         tv4.setText(user.username);
@@ -115,16 +129,9 @@ public class OrderFragment extends Fragment {
 
     }
 
-    /**
-     * 当观察到用户付款引起的数据变化时，更新订单列表
-     *
-     * @return void
-     * @Author Bubu
-     * @date 2022/10/19 14:04
-     * @commit
-     */
-    public void updateOrders() {
-        // 设置 RecyclerView 显示的内容
+    public void updateOrders()
+    {
+
         createdTime = orderViewModel.lastOrderCreatedTime.getValue();
         List<UserDish> list = orderViewModel.getUserDishes().getValue();
         if (showHistory) {
@@ -141,7 +148,5 @@ public class OrderFragment extends Fragment {
             orderAdapter.setUserDishList(filter);
         }
         orderAdapter.notifyDataSetChanged();
-
     }
-
 }

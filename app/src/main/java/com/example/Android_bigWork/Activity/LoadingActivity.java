@@ -63,7 +63,7 @@ public class LoadingActivity extends AppCompatActivity
     }
 
     private void initDishDatabase(DishDao dishDao) {
-        //插入数据
+        //插入数据作为静态的基础数据
         dishDao.insert(new Dish(1, getRString(R.string.dish_1), getRString(R.string.desc_1), Double.parseDouble(getRString(R.string.price_1)), getRString(R.string.cate_1), 1, true, false));
         dishDao.insert(new Dish(5, getRString(R.string.dish_5), getRString(R.string.desc_5), Double.parseDouble(getRString(R.string.price_5)), getRString(R.string.cate_1), 1, true, false));
         dishDao.insert(new Dish(12, getRString(R.string.dish_12), getRString(R.string.desc_12), Double.parseDouble(getRString(R.string.price_12)), getRString(R.string.cate_1), 1, true, false));

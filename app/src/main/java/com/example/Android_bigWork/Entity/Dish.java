@@ -5,6 +5,8 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "dish_table")//实体类的声明
 public class Dish {
+
+
     @PrimaryKey
     private int GID;    // 菜品在菜单上的唯一编号
     private String name;    // 菜品名
@@ -13,59 +15,49 @@ public class Dish {
     private String category;    // 分类类名
     private int CID;    // 分类编号
     private boolean customizable;   // 是否支持定制需求
-//    private boolean spicy;  // 辣味是否可选
-//    private boolean sweet;  // 甜味是否可选
-//    private int count;  // 选购份数
+    private boolean spicy;  // 辣味是否可选
+    private boolean sweet;  // 甜味是否可选
+    private int count;  // 选购份数
 
     public Dish() {
 
     }
 
-    public Dish(int gid, String name, String description, double price, String category, int CID, boolean customizable) {
+    public Dish(int gid, String name, String description, double price, String category, int CID, boolean spicy, boolean sweet) {
         this.GID = gid;
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = category;
         this.CID = CID;
-        this.customizable = customizable;
+        this.spicy = spicy;
+        this.sweet = sweet;
+        this.count = 0;
     }
 
-//    public Dish(int gid, String name, String description, double price, String category, int CID, boolean spicy,boolean sweet,int count) {
-//        this.GID = gid;
-//        this.name = name;
-//        this.description = description;
-//        this.price = price;
-//        this.category = category;
-//        this.CID = CID;
-//        this.spicy = spicy;
-//        this.sweet=sweet;
-//        this.count=count;
-//    }
-//
-//    public boolean isSpicy() {
-//        return spicy;
-//    }
-//
-//    public void setSpicy(boolean spicy) {
-//        this.spicy = spicy;
-//    }
-//
-//    public boolean isSweet() {
-//        return sweet;
-//    }
-//
-//    public void setSweet(boolean sweet) {
-//        this.sweet = sweet;
-//    }
-//
-//    public int getCount() {
-//        return count;
-//    }
-//
-//    public void setCount(int count) {
-//        this.count = count;
-//    }
+    public boolean isSpicy() {
+        return spicy;
+    }
+
+    public void setSpicy(boolean spicy) {
+        this.spicy = spicy;
+    }
+
+    public boolean isSweet() {
+        return sweet;
+    }
+
+    public void setSweet(boolean sweet) {
+        this.sweet = sweet;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
 
     public int getCID() {
         return CID;
@@ -125,6 +117,17 @@ public class Dish {
 
     @Override
     public String toString() {
-        return "Dish{" + "GID=" + GID + ", name='" + name + '\'' + ", description='" + description + '\'' + ", price=" + price + ", category='" + category + '\'' + ", CID=" + CID + ", customizable=" + customizable + '}';
+        return "Dish{" +
+                "GID=" + GID +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", category='" + category + '\'' +
+                ", CID=" + CID +
+                ", customizable=" + customizable +
+                ", spicy=" + spicy +
+                ", sweet=" + sweet +
+                ", count=" + count +
+                '}';
     }
 }

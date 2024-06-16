@@ -21,7 +21,7 @@ public interface DishDao {
      * @Author tankofpacer
      * @commit
      */
-    @Query("SELECT * FROM dish_table")
+    @Query("SELECT * FROM dish_table ORDER BY CID")
     List<Dish> getAllDish();
 
     /**

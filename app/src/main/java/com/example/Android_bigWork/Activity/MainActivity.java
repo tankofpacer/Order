@@ -9,7 +9,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
@@ -24,7 +23,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private final String TAG = "MainActivity";
-    private BottomNavigationBar bottomNavigationBar;
+    private BottomNavigationBar mBottomNavigationBar;
     private ArrayList<Fragment> fragmentArrayList;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
@@ -73,15 +72,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initBottomNavigationBar() {
-        bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottomNavigationBar);
-        bottomNavigationBar
+        mBottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottomNavigationBar);
+        mBottomNavigationBar
                 .addItem(new BottomNavigationItem(R.drawable.ic_baseline_home_24, "Detail"))
                 .addItem(new BottomNavigationItem(R.drawable.ic_baseline_home_24, "Order"))
                 .addItem(new BottomNavigationItem(R.drawable.ic_baseline_home_24, "Setting"))
                 .setFirstSelectedPosition(0)
                 .initialise();
         // BottomNavigationBar的点击监听器
-        bottomNavigationBar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener() {
+        mBottomNavigationBar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int position) {
                 Log.d(TAG, "onTabSelected: " + position);
@@ -103,8 +102,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "onTabReselected: " + position);
             }
         });
-
-        bottomNavigationBar.setVisibility(View.GONE);
     }
 
 }

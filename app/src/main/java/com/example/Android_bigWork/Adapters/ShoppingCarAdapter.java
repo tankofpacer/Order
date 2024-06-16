@@ -99,7 +99,7 @@ public class ShoppingCarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             // 更新购物车金额
             updateShoppingCarAccount();
         });
-        Log.d(TAG, "onCreateViewHolder: ");
+
         return holder;
     }
 
@@ -128,7 +128,7 @@ public class ShoppingCarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        Log.d(TAG, "getItemCount: " + userDishList.size());
+//        Log.d(TAG, "getItemCount: " + userDishList.size());
         // 列表为空返回 1 是为了显示 empty view，若为0，则不会显示任何对象
         if(userDishList.size()==0){
             return 1;
@@ -138,7 +138,7 @@ public class ShoppingCarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemViewType(int position) {
-        Log.d(TAG, "getItemViewType: "+userDishList.size());
+//        Log.d(TAG, "getItemViewType: "+userDishList.size());
         if(userDishList.size()==0){
             return VIEW_TYPE_EMPTY;
         }else {

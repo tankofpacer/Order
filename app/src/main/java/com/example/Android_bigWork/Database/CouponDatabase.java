@@ -9,9 +9,10 @@ import androidx.room.RoomDatabase;
 import com.example.Android_bigWork.Entity.Coupon;
 
 /**
- * @author 
+ * @author Anduin9527
  * @Type CouponDatabase
  * @Desc
+ * @date 2022/10/18 19:29
  */
 @Database(entities = {Coupon.class}, version = 1, exportSchema = false)
 public abstract class CouponDatabase extends RoomDatabase {
@@ -23,7 +24,8 @@ public abstract class CouponDatabase extends RoomDatabase {
      *
      * @param context 上下文环境
      * @return CouponDatabase
-     * @Author 
+     * @Author Anduin9527
+     * @date 2022/10/9 19:27
      * @commit
      */
     public static synchronized CouponDatabase getDatabase(Context context) {

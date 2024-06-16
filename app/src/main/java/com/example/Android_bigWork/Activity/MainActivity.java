@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * 初始化底部导航按钮
+     * 2024.6.16 完成初始化底部导航
      *
      * @return void
      * @Author Bubu

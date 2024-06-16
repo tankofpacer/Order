@@ -5,20 +5,19 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.example.Android_bigWork.Entity.PersonEntity;
 
 import java.util.List;
 
 @Dao //Dao的声明
 public interface PersonDao {
     @Query("SELECT * FROM person_table")
-    List<PersonEntity> getAll();
+    List<Person> getAll();
 
     @Insert
-    void insert(PersonEntity personEntity);
+    void insert(Person person);
 
     @Delete
-    void delete(PersonEntity personEntity);
+    void delete(Person person);
 
     /**
      * 登录检测（使用用户名和密码的组合）
@@ -29,7 +28,7 @@ public interface PersonDao {
      * @commit
      */
     @Query("SELECT * FROM person_table WHERE username = :username and password = :password ")
-    PersonEntity checkLogin(String username, String password);
+    Person checkLogin(String username, String password);
 
     /**
      * 登录检测（使用电话号码和密码的组合）
@@ -40,7 +39,7 @@ public interface PersonDao {
      * @commit
      */
     @Query("SELECT * FROM person_table WHERE phoneNumber = :phoneNumber and password = :password ")
-    PersonEntity checkLoginByPhoneNumber(long phoneNumber, String password);
+    Person checkLoginByPhoneNumber(long phoneNumber, String password);
 
     /**
      * 检测用户名是否存在
@@ -51,7 +50,7 @@ public interface PersonDao {
      * @commit
      */
     @Query("SELECT * FROM person_table WHERE username = :username")
-    PersonEntity checkUsername(String username);
+    Person checkUsername(String username);
 
     /**
      * 检测电话号码是否存在
@@ -62,7 +61,7 @@ public interface PersonDao {
      * @commit
      */
     @Query("SELECT * FROM person_table WHERE phoneNumber = :phoneNumber")
-    PersonEntity checkPhoneNumber(long phoneNumber);
+    Person checkPhoneNumber(long phoneNumber);
 
     /**
      * 修改密码
@@ -86,7 +85,7 @@ public interface PersonDao {
      * @commit
      */
     @Query("SELECT * FROM person_table WHERE username = :username")
-    PersonEntity queryPerson(String username);
+    Person queryPerson(String username);
 
 
 }

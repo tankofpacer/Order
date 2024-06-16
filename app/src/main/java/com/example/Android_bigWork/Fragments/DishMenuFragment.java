@@ -1,5 +1,6 @@
 package com.example.Android_bigWork.Fragments;
 
+
 import static com.example.Android_bigWork.Utils.RelativePopupWindow.makeDropDownMeasureSpec;
 
 import android.app.AlertDialog;
@@ -17,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,6 +39,8 @@ import com.example.Android_bigWork.Database.DishDatabase;
 import com.example.Android_bigWork.Entity.Dish;
 import com.example.Android_bigWork.Entity.UserDish;
 import com.example.Android_bigWork.R;
+import com.example.Android_bigWork.Utils.BaseDialog;
+import com.example.Android_bigWork.Utils.PayPasswordDialog;
 import com.example.Android_bigWork.Utils.RelativePopupWindow;
 import com.example.Android_bigWork.Utils.StringUtil;
 import com.example.Android_bigWork.ViewModels.DetailViewModel;
@@ -70,7 +74,7 @@ public class DishMenuFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        this.userName=((MainActivity)requireActivity()).getUsername();
+        this.userName = ((MainActivity) requireActivity()).getUsername();
     }
 
     @Override
@@ -88,14 +92,14 @@ public class DishMenuFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         // init ViewModel
         mViewModel = new ViewModelProvider(this).get(DetailViewModel.class);
-        userDishList=new ArrayList<>();
+        userDishList = new ArrayList<>();
         // TODO: Use the ViewModel
 
         // bind Views
         bindViews(view);
 
         // 菜品栏初始化
-        FoodStickyAdapter foodStickyAdapter = new FoodStickyAdapter(getContext(),this, dishList,userDishList,userName);
+        FoodStickyAdapter foodStickyAdapter = new FoodStickyAdapter(getContext(), this, dishList, userDishList, userName);
         stickyListView.setAdapter(foodStickyAdapter);
         // 分类栏初始化
         FoodCategoryAdapter foodCategoryAdapter = new FoodCategoryAdapter(getContext(), categoryItems);
@@ -150,8 +154,27 @@ public class DishMenuFragment extends Fragment {
                     }
                 });
                 builder.setPositiveButton(getRString(R.string.confirm), (dialogInterface, i) -> {
-                    Log.d(TAG, "dialogYes: payment succeed");
-                    // TODO: 2022/10/12 生成订单
+                    //确认订单则弹出支付窗口
+                    new PayPasswordDialog.Builder(requireActivity())
+                            .setTitle(R.string.pay_title)
+                            .setSubTitle(R.string.pay_sub_title)
+                            .setMoney("￥ 100")//TODO: 设置订单金额
+//                            .setAutoDismiss(false)//点击按钮后不关闭对话框
+                            .setListener(new PayPasswordDialog.OnListener() {
+                                @Override
+                                public void onCompleted(BaseDialog dialog, String password) {
+                                    //TODO：检测支付密码是否正确
+                                    // TODO: 2022/10/12 生成订单
+                                    Toast.makeText(requireActivity(), "支付成功", Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onCancel(BaseDialog dialog) {
+                                    //TODO：支付取消
+                                    Toast.makeText(requireActivity(), "支付取消", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .show();
                 });
                 builder.create().show();
             }
@@ -186,10 +209,10 @@ public class DishMenuFragment extends Fragment {
      * @date 2022/10/14 21:03
      * @commit
      */
-    public void updateShoppingCarAccount(){
-        double total=0;
-        for (UserDish ud:userDishList){
-            total+=ud.getPrice();
+    public void updateShoppingCarAccount() {
+        double total = 0;
+        for (UserDish ud : userDishList) {
+            total += ud.getPrice();
         }
         setShoppingCarAccount(total);
     }
@@ -203,9 +226,9 @@ public class DishMenuFragment extends Fragment {
      * @date 2022/10/14 19:55
      * @commit
      */
-    public void setShoppingCarAccount(double money){
-        TextView totalAccount= shoppingCar.findViewById(R.id.account_in_car);
-        totalAccount.setText(StringUtil.getSSMoney(money,72));
+    public void setShoppingCarAccount(double money) {
+        TextView totalAccount = shoppingCar.findViewById(R.id.account_in_car);
+        totalAccount.setText(StringUtil.getSSMoney(money, 72));
     }
 
     /**
@@ -304,10 +327,10 @@ public class DishMenuFragment extends Fragment {
         // 绑定视图
         View contentView = shoppingCar.getContentView();
         Button button = contentView.findViewById(R.id.clear_shopping);
-        RecyclerView shoppingList=contentView.findViewById(R.id.shopping_list);
+        RecyclerView shoppingList = contentView.findViewById(R.id.shopping_list);
         // 设置 RecyclerView
         shoppingList.setLayoutManager(new LinearLayoutManager(requireActivity()));
-        ShoppingCarAdapter shoppingCarAdapter=new ShoppingCarAdapter(getContext(),this,userDishList,dishList);
+        ShoppingCarAdapter shoppingCarAdapter = new ShoppingCarAdapter(getContext(), this, userDishList, dishList);
         shoppingList.setAdapter(shoppingCarAdapter);
         //需要先测量，PopupWindow还未弹出时，宽高为0
         contentView.measure(makeDropDownMeasureSpec(shoppingCar.getWidth()),
@@ -315,12 +338,12 @@ public class DishMenuFragment extends Fragment {
         // 计算偏移量
         int offsetX = -contentView.getMeasuredWidth();
 //        int offsetY = (contentView.getMeasuredHeight() + payment.getHeight());
-        int offsetY=0;
+        int offsetY = 0;
         // 设置显隐动画
         shoppingCar.setAnimationStyle(R.style.shoppingCar_anim_style);
         // 显示购物车弹窗
         PopupWindowCompat.showAsDropDown(shoppingCar, payment, offsetX, offsetY, Gravity.END);
-        Log.d(TAG, "showShoppingCar: X,Y="+offsetX+","+offsetY);
+        Log.d(TAG, "showShoppingCar: X,Y=" + offsetX + "," + offsetY);
         // "清空"按钮点击事件
         button.setOnClickListener(v -> {
             // TODO: 清空购物车

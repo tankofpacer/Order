@@ -17,8 +17,11 @@ import android.widget.Toast;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 //import com.example.Android_bigWork.R;
+
+import com.example.Android_bigWork.Fragments.DishMenuFragment;
+
 import com.example.Android_bigWork.Entity.PersonEntity;
-import com.example.Android_bigWork.Fragments.DetailFragment;
+
 import com.example.Android_bigWork.Fragments.OrderFragment;
 import com.example.Android_bigWork.Fragments.SettingFragment;
 import com.example.Android_bigWork.R;
@@ -75,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initFragmentArrayList() {
         fragmentArrayList = new ArrayList<>();
-        fragmentArrayList.add(new DetailFragment());
+        fragmentArrayList.add(new DishMenuFragment());
         fragmentArrayList.add(new OrderFragment());
         fragmentArrayList.add(new SettingFragment());
 
@@ -118,10 +121,12 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationBar.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                int width = bottomNavigationBar.getMeasuredWidth();
-                int height = bottomNavigationBar.getMeasuredHeight();
-                Log.d(TAG, "onLayoutChange: BottomNavigationBar (width,height)=(" + width + "," + height + ")");
-//                ((DetailFragment)fragmentArrayList.get(0)).setBottomNavigationBarHeight(height);
+
+                int width=bottomNavigationBar.getMeasuredWidth();
+                int height=bottomNavigationBar.getMeasuredHeight();
+                Log.d(TAG, "onLayoutChange: BottomNavigationBar (width,height)=("+width+","+height+")");
+//                ((DishMenuFragment)fragmentArrayList.get(0)).setBottomNavigationBarHeight(height);
+
             }
         });
 //        bottomNavigationBar.setVisibility(View.GONE);

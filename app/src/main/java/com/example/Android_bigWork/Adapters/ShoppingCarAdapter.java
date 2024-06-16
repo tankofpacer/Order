@@ -1,28 +1,32 @@
 package com.example.Android_bigWork.Adapters;
 
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 
-public class ShoppingCarAdapter extends BaseAdapter {
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.AsyncDifferConfig;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
+import androidx.recyclerview.widget.RecyclerView;
 
-    @Override
-    public int getCount() {
-        return 0;
+
+public class ShoppingCarAdapter extends ListAdapter {
+
+    protected ShoppingCarAdapter(@NonNull DiffUtil.ItemCallback diffCallback) {
+        super(diffCallback);
     }
 
+    protected ShoppingCarAdapter(@NonNull AsyncDifferConfig config) {
+        super(config);
+    }
+
+    @NonNull
     @Override
-    public Object getItem(int position) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return null;
     }
 
     @Override
-    public long getItemId(int position) {
-        return 0;
-    }
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        return null;
     }
 }

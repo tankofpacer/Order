@@ -10,12 +10,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -24,7 +22,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.TextView;
@@ -65,7 +62,6 @@ import com.hjq.xtoast.draggable.SpringDraggable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
@@ -124,8 +120,8 @@ public class DishMenuFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        // for test
-        initDishListForTest();
+
+        initDishList();
         initCategoryItems();
         userDishList = new ArrayList<>();
         total = 0;
@@ -308,23 +304,13 @@ public class DishMenuFragment extends Fragment {
             }
         });
 
-
-        // 监听购物车栏的布局变化，获取高度
-//        shoppingCar.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-//            @Override
-//            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-//                shoppingCarHeight=shoppingCar.getMeasuredHeight();
-//            }
-//        });
-
     }
 
     /**
      * 更新购物车已购金额、
      *
      * @return void
-     * @Author Bubu
-     * @date 2022/10/14 21:03
+     * @Author 
      * @commit
      */
     public void updateShoppingCarAccount() {
@@ -341,8 +327,7 @@ public class DishMenuFragment extends Fragment {
      *
      * @param money 设置的金额
      * @return void
-     * @Author Bubu
-     * @date 2022/10/14 19:55
+     * @Author 
      * @commit
      */
     public void setShoppingCarAccount(double money) {
@@ -371,8 +356,7 @@ public class DishMenuFragment extends Fragment {
      *
      * @param view
      * @return void
-     * @Author Bubu
-     * @date 2022/10/12 20:51
+     * @Author 
      * @commit none
      */
     private void bindViews(View view) {
@@ -383,6 +367,14 @@ public class DishMenuFragment extends Fragment {
         redPackInit();
     }
 
+    /**
+     * 初始化红包
+     *
+     * @return void
+     * @Author Bubu
+     * @date 2022/10/29 10:18
+     * @commit
+     */
     private void redPackInit() {
         //计数器
         final int[] count = {0};
@@ -445,10 +437,8 @@ public class DishMenuFragment extends Fragment {
     /**
      * 随机生成优惠券，并插入数据库
      *
-     * @param
-     * @return
-     * @Author Anduin9527
-     * @date 2022/10/18 20:47
+     * @return String
+     * @Author 
      * @commit
      */
     private String geneCoupon() {
@@ -476,8 +466,7 @@ public class DishMenuFragment extends Fragment {
      *
      * @param id
      * @return String
-     * @Author Anduin9527
-     * @date 2022/10/12 8:29
+     * @Author 
      * @commit
      */
     private String getRString(@StringRes int id) {
@@ -489,11 +478,10 @@ public class DishMenuFragment extends Fragment {
      *
      * @return void
      * @description
-     * @Author Bubu
-     * @date 2022/10/12 17:45
+     * @Author 
      * @commit
      */
-    private void initDishListForTest() {
+    private void initDishList() {
         Resources r = getResources();
         //连接数据库
         dishList = new ArrayList<>();
@@ -513,8 +501,7 @@ public class DishMenuFragment extends Fragment {
      * 初始化类别列表，从商品列表中提取分类
      *
      * @return void
-     * @Author Bubu
-     * @date 2022/10/13 0:51
+     * @Author 
      * @commit
      */
     private void initCategoryItems() {
@@ -542,8 +529,7 @@ public class DishMenuFragment extends Fragment {
      * 显示购物车
      *
      * @return void
-     * @Author Bubu
-     * @date 2022/10/12 17:45
+     * @Author 
      * @commit
      */
     public void showShoppingCar() {
@@ -609,8 +595,7 @@ public class DishMenuFragment extends Fragment {
      * 清空购物车
      *
      * @return void
-     * @Author Bubu
-     * @date 2022/10/26 13:47
+     * @Author 
      * @commit
      */
     public void clearShoppingCar() {

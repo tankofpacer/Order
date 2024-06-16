@@ -33,6 +33,12 @@ import java.util.Objects;
 
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
+/**
+ * @Type FoodStickyAdapter
+ * @Desc 用于菜品显示的适配器
+ * @author 
+ * @version
+ */
 public class FoodStickyAdapter extends BaseAdapter implements StickyListHeadersAdapter {
 
     private static final String TAG = "my";

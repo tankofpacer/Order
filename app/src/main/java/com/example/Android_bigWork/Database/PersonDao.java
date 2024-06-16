@@ -67,13 +67,13 @@ public interface PersonDao {
     /**
      * 修改密码
      *
-     * @param username 用户名 newPassword 新密码
+     * @param newPassword 新密码 oldPassword 旧密码 username 用户名
      * @return Update
      * @Author tankofpacer
      * @commit
      */
-    @Query("UPDATE person_table SET password = :newPassword WHERE username = :username")
-    void changePassword(String username, String newPassword);
+    @Query("UPDATE person_table SET password = :newPassword WHERE password  = :oldPassword and username = :username")
+    void changePassword(String oldPassword, String newPassword, String username);
 
     //查询用户
 

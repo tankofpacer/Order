@@ -25,8 +25,7 @@ public interface PersonDao {
      *
      * @param username 用户名 password 密码
      * @return Query
-     * @Author Anduin9527
-     * @date 2022/10/12 9:14
+     * @Author tankofpacer
      * @commit
      */
     @Query("SELECT * FROM person_table WHERE username = :username and password = :password ")
@@ -37,8 +36,7 @@ public interface PersonDao {
      *
      * @param phoneNumber 电话号码 password 密码
      * @return
-     * @Author Anduin9527
-     * @date 2022/10/12 9:15
+     * @Author tankofpacer
      * @commit
      */
     @Query("SELECT * FROM person_table WHERE phoneNumber = :phoneNumber and password = :password ")
@@ -49,8 +47,7 @@ public interface PersonDao {
      *
      * @param username 用户名
      * @return Query
-     * @Author Anduin9527
-     * @date 2022/10/12 9:14
+     * @Author tankofpacer
      * @commit
      */
     @Query("SELECT * FROM person_table WHERE username = :username")
@@ -61,8 +58,7 @@ public interface PersonDao {
      *
      * @param phoneNumber 电话号码
      * @return Query
-     * @Author Anduin9527
-     * @date 2022/10/12 9:14
+     * @Author tankofpacer
      * @commit
      */
     @Query("SELECT * FROM person_table WHERE phoneNumber = :phoneNumber")
@@ -73,11 +69,24 @@ public interface PersonDao {
      *
      * @param username 用户名 newPassword 新密码
      * @return Update
-     * @Author Anduin9527
-     * @date 2022/10/12 9:14
+     * @Author tankofpacer
      * @commit
      */
     @Query("UPDATE person_table SET password = :newPassword WHERE username = :username")
     void changePassword(String username, String newPassword);
+
+    //查询用户
+
+    /**
+     * 查询用户
+     *
+     * @param username
+     * @return
+     * @Author tankofpacer
+     * @commit
+     */
+    @Query("SELECT * FROM person_table WHERE username = :username")
+    PersonEntity queryPerson(String username);
+
 
 }

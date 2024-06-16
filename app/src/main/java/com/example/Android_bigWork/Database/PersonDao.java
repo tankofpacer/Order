@@ -4,20 +4,22 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
+import com.example.Android_bigWork.Entity.PersonEntity;
 
 import java.util.List;
 
 @Dao //Dao的声明
 public interface PersonDao {
     @Query("SELECT * FROM person_table")
-    List<Person> getAll();
+    List<PersonEntity> getAll();
 
     @Insert
-    void insert(Person person);
+    void insert(PersonEntity personEntity);
 
     @Delete
-    void delete(Person person);
+    void delete(PersonEntity personEntity);
 
     /**
      * 登录检测（使用用户名和密码的组合）
@@ -28,7 +30,7 @@ public interface PersonDao {
      * @commit
      */
     @Query("SELECT * FROM person_table WHERE username = :username and password = :password ")
-    Person checkLogin(String username, String password);
+    PersonEntity checkLogin(String username, String password);
 
     /**
      * 登录检测（使用电话号码和密码的组合）
@@ -39,7 +41,7 @@ public interface PersonDao {
      * @commit
      */
     @Query("SELECT * FROM person_table WHERE phoneNumber = :phoneNumber and password = :password ")
-    Person checkLoginByPhoneNumber(long phoneNumber, String password);
+    PersonEntity checkLoginByPhoneNumber(long phoneNumber, String password);
 
     /**
      * 检测用户名是否存在
@@ -50,7 +52,7 @@ public interface PersonDao {
      * @commit
      */
     @Query("SELECT * FROM person_table WHERE username = :username")
-    Person checkUsername(String username);
+    PersonEntity checkUsername(String username);
 
     /**
      * 检测电话号码是否存在
@@ -61,7 +63,7 @@ public interface PersonDao {
      * @commit
      */
     @Query("SELECT * FROM person_table WHERE phoneNumber = :phoneNumber")
-    Person checkPhoneNumber(long phoneNumber);
+    PersonEntity checkPhoneNumber(long phoneNumber);
 
     /**
      * 修改密码
@@ -85,11 +87,7 @@ public interface PersonDao {
      * @commit
      */
     @Query("SELECT * FROM person_table WHERE username = :username")
-    Person queryPerson(String username);
+    PersonEntity queryPerson(String username);
 
-    //查询用户的支付密码
-
-    @Query("SELECT payPassword FROM person_table WHERE username = :username")
-    int queryPayPassword(String username);
 
 }

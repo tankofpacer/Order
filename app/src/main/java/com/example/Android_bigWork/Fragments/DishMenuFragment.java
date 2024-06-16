@@ -3,11 +3,9 @@ package com.example.Android_bigWork.Fragments;
 
 import static com.example.Android_bigWork.Utils.RelativePopupWindow.makeDropDownMeasureSpec;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,17 +36,14 @@ import com.example.Android_bigWork.Adapters.FoodStickyAdapter;
 import com.example.Android_bigWork.Adapters.ShoppingCarAdapter;
 import com.example.Android_bigWork.Database.DishDao;
 import com.example.Android_bigWork.Database.DishDatabase;
-import com.example.Android_bigWork.Database.PersonDao;
-import com.example.Android_bigWork.Database.PersonDatabase;
 import com.example.Android_bigWork.Entity.Dish;
-import com.example.Android_bigWork.Entity.Person;
 import com.example.Android_bigWork.Entity.UserDish;
 import com.example.Android_bigWork.R;
 import com.example.Android_bigWork.Utils.BaseDialog;
 import com.example.Android_bigWork.Utils.PayPasswordDialog;
 import com.example.Android_bigWork.Utils.RelativePopupWindow;
 import com.example.Android_bigWork.Utils.StringUtil;
-import com.example.Android_bigWork.ViewModels.DetailViewModel;
+import com.example.Android_bigWork.ViewModels.DishMenu;
 
 import java.util.ArrayList;
 
@@ -57,11 +52,12 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 public class DishMenuFragment extends Fragment {
 
     private final String TAG = "my";
-    private DetailViewModel mViewModel;
+    private DishMenu mViewModel;
     private StickyListHeadersListView stickyListView;
     private ListView listView;
     LinearLayout shoppingCar;
     Button payment;
+    private String userName;
 
     //for test
     private ArrayList<Dish> dishList;
@@ -70,10 +66,6 @@ public class DishMenuFragment extends Fragment {
 
     //数据库
     private DishDatabase dishDatabase;
-    private DishDao dishDao;
-    private PersonDatabase personDatabase;
-    private PersonDao personDao;
-    private Person user;//MainActivity中的用户信息
 
     public static DishMenuFragment newInstance() {
         return new DishMenuFragment();
@@ -82,15 +74,7 @@ public class DishMenuFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        //初始化数据库
-        dishDatabase = DishDatabase.getDatabase(context);
-        dishDao = dishDatabase.getDishDao();
-        personDatabase = PersonDatabase.getDatabase(context);
-        personDao = personDatabase.getPersonDao();
-        //获取MainActivity的Bundle数据
-        Intent intent = ((Activity) context).getIntent();
-        Bundle bundle = intent.getExtras();
-        user = (Person) bundle.getSerializable("user");
+        this.userName = ((MainActivity) requireActivity()).getUsername();
     }
 
     @Override
@@ -107,7 +91,7 @@ public class DishMenuFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // init ViewModel
-        mViewModel = new ViewModelProvider(this).get(DetailViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(DishMenu.class);
         userDishList = new ArrayList<>();
         // TODO: Use the ViewModel
 
@@ -115,7 +99,7 @@ public class DishMenuFragment extends Fragment {
         bindViews(view);
 
         // 菜品栏初始化
-        FoodStickyAdapter foodStickyAdapter = new FoodStickyAdapter(getContext(), this, dishList, userDishList, user.username);
+        FoodStickyAdapter foodStickyAdapter = new FoodStickyAdapter(getContext(), this, dishList, userDishList, userName);
         stickyListView.setAdapter(foodStickyAdapter);
         // 分类栏初始化
         FoodCategoryAdapter foodCategoryAdapter = new FoodCategoryAdapter(getContext(), categoryItems);
@@ -171,34 +155,23 @@ public class DishMenuFragment extends Fragment {
                 });
                 builder.setPositiveButton(getRString(R.string.confirm), (dialogInterface, i) -> {
                     //确认订单则弹出支付窗口
-                    //获取当前购物车中的价格
-                    double price = 0;
-                    for (UserDish userDish : userDishList) {
-                        price += userDish.getPrice();
-                    }
-                    if (price == 0) {
-                        Toast.makeText(getContext(), "买点,多少买点", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
                     new PayPasswordDialog.Builder(requireActivity())
                             .setTitle(R.string.pay_title)
                             .setSubTitle(R.string.pay_sub_title)
-                            .setMoney(getRString(R.string.pay_money) + " " + String.valueOf(price))//TODO: 设置订单金额
-                            .setAutoDismiss(true)//支付满6位自动关闭
+                            .setMoney("￥ 100")//TODO: 设置订单金额
+//                            .setAutoDismiss(false)//点击按钮后不关闭对话框
                             .setListener(new PayPasswordDialog.OnListener() {
                                 @Override
-                                public void onCompleted(BaseDialog dialog, String payPassword) {
-                                    if (Integer.parseInt(payPassword) == user.payPassword) {
-                                        Toast.makeText(requireActivity(), getRString(R.string.pay_success), Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(requireActivity(), getRString(R.string.pay_fail), Toast.LENGTH_SHORT).show();
-                                        Log.d(TAG, "onPay: " + payPassword + " " + personDao.queryPayPassword(user.username));
-                                    }
+                                public void onCompleted(BaseDialog dialog, String password) {
+                                    //TODO：检测支付密码是否正确
+                                    // TODO: 2022/10/12 生成订单
+                                    Toast.makeText(requireActivity(), "支付成功", Toast.LENGTH_SHORT).show();
                                 }
 
                                 @Override
                                 public void onCancel(BaseDialog dialog) {
-                                    Toast.makeText(requireActivity(), getRString(R.string.pay_cancel), Toast.LENGTH_SHORT).show();
+                                    //TODO：支付取消
+                                    Toast.makeText(requireActivity(), "支付取消", Toast.LENGTH_SHORT).show();
                                 }
                             })
                             .show();

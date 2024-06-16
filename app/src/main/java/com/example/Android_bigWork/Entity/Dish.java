@@ -8,9 +8,8 @@ import androidx.room.PrimaryKey;
  * @Desc 菜单上的菜品
  * @author lsw
  */
-@Entity(tableName = "dish_table")//实体类的声明
-public class Dish {
-
+@Entity(tableName = "dish_table")
+public class Dish {     // 菜品类
     @PrimaryKey
     private int GID;    // 菜品在菜单上的唯一编号
     private String name;    // 菜品名

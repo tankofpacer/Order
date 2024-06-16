@@ -64,12 +64,19 @@ public class MainActivity extends AppCompatActivity {
             //获取Bundle中的数据
             user = (Person) bundle.getSerializable("user");
             //判断是否有传入的用户数据
-            Toast.makeText(this, "欢迎您，" + user.username, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, R.string.welcome + user.username, Toast.LENGTH_SHORT).show();
         }
 
 
     }
 
+    /**
+     * 初始化页面、
+     *
+     * @return void
+     * @Author 
+     * @commit
+     */
     private void initFragmentTransaction() {
         //开启事务
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -87,8 +94,7 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param
      * @return
-     * @Author Anduin9527
-     * @date 2022/10/16 11:39
+     * @Author 
      * @commit
      */
     private void initFragmentArrayList() {
@@ -111,12 +117,19 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * 初始化底部导航按钮
+     *
+     * @return void
+     * @Author 
+     * @commit
+     */
     private void initBottomNavigationBar() {
         bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottomNavigationBar);
         bottomNavigationBar
-                .addItem(new BottomNavigationItem(R.drawable.icon_home, "Detail"))
-                .addItem(new BottomNavigationItem(R.drawable.icon_order, "Order"))
-                .addItem(new BottomNavigationItem(R.drawable.icon_setting, "Setting"))
+                .addItem(new BottomNavigationItem(R.drawable.icon_home, R.string.menu))
+                .addItem(new BottomNavigationItem(R.drawable.icon_order, R.string.orders))
+                .addItem(new BottomNavigationItem(R.drawable.icon_setting, R.string.settings))
                 .setFirstSelectedPosition(0)
                 .initialise();
 
@@ -156,7 +169,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-//        bottomNavigationBar.setVisibility(View.GONE);
     }
 
 }

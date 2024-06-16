@@ -1,11 +1,6 @@
 package com.example.Android_bigWork.Entity;
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
-@Entity(tableName = "dish_table")//实体类的声明
 public class Dish {
-    @PrimaryKey
     private int GID;
     private String name;
     private String description;
@@ -14,18 +9,18 @@ public class Dish {
     private int CID;
     private boolean customizable;
 
-    public Dish() {
-
+    public Dish(String name,double price) {
+        new Dish(0,name,"no description",price,"popular",0,false);
     }
 
     public Dish(int gid, String name, String description, double price, String category, int CID, boolean customizable) {
-        this.GID = gid;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.category = category;
-        this.CID = CID;
-        this.customizable = customizable;
+        this.GID=gid;
+        setName(name);
+        setDescription(description);
+        setPrice(price);
+        setCategory(category);
+        setCID(CID);
+        setCustomizable(customizable);
     }
 
     public int getCID() {
@@ -84,8 +79,4 @@ public class Dish {
         this.customizable = customizable;
     }
 
-    @Override
-    public String toString() {
-        return "Dish{" + "GID=" + GID + ", name='" + name + '\'' + ", description='" + description + '\'' + ", price=" + price + ", category='" + category + '\'' + ", CID=" + CID + ", customizable=" + customizable + '}';
-    }
 }

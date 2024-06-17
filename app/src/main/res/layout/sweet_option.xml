@@ -42,5 +42,14 @@
             android:layout_weight="1"
             android:text="@string/sweet_4" />
     </RadioGroup>
+            <!-- <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:gravity="center"
+            android:paddingHorizontal="10dp"
+            android:text="@string/shopping_car_title"
+            android:textSize="20sp" /> -->
 
 </LinearLayout>
